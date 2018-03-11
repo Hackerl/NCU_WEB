@@ -3,6 +3,7 @@
   background-color: #0e90d2;
   width: 100% !important;
   height:6rem;
+  margin-bottom: 3rem;
 }
 .contact-name i{
   color:white;
@@ -12,9 +13,12 @@
 }
 .vertical-align{
   position: relative;
-top: 50%;
-transform: translateY(-50%);
+  top: 50%;
+  transform: translateY(-50%);
 }
+/*.contact-am-name{
+  text-align: center;
+}*/
 
 /*对话*/
 .box {
@@ -298,7 +302,4 @@ transform: translateY(-50%);
 .contact-send{
   position: fixed;
   bottom: 0;
-}
-.contact-am-name{
-  text-align: center;
 }
