@@ -43,7 +43,7 @@
 .am-panel-bd{
 }
 .am-panel-bd-hover{
-  background-color: red;
+  background-color: #CCCCCC;
   margin-top: -0.8rem;
   margin-bottom: -0.6rem;
 }

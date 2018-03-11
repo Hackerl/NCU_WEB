@@ -1,29 +1,22 @@
 /*contact.html*/
 .contact-name{
-  background-color: green;
+  background-color: #0e90d2;
+  width: 100% !important;
+  height:6rem;
 }
-.talkbubble {
-width: 120px;
-height: 80px;
-background: red;
-position: relative;
--moz-border-radius: 10px;
--webkit-border-radius: 10px;
-border-radius: 10px;
+.contact-name i{
+  color:white;
 }
-.talkbubble:before {
-content:"";
-position: absolute;
-right: 100%;
-top: 26px;
-width: 0;
-height: 0;
-border-top: 13px solid transparent;
-border-right: 26px solid red;
-border-bottom: 13px solid transparent;
+.contact-am-name{
+  color: #fff;
+}
+.vertical-align{
+  position: relative;
+top: 50%;
+transform: translateY(-50%);
 }
 
-/*信息*/
+/*对话*/
 .box {
     position: relative;
     background-color: #eee;
