@@ -299,3 +299,6 @@ transform: translateY(-50%);
   position: fixed;
   bottom: 0;
 }
+.contact-am-name{
+  text-align: center;
+}
