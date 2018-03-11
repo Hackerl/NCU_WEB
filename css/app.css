@@ -40,6 +40,9 @@
 .am-panel-bd{
   display: none;
 }
+.am-icon-angle-down{
+    display: none;
+}
 .am-panel-bd{
 }
 .am-panel-bd-hover{
