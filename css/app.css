@@ -1,5 +1,12 @@
 /* Write your styles */
 
+
+.am-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* 登陆logo */
 .myapp-login-logo { font-size: 130px; color: #ff6a4c;}
 
