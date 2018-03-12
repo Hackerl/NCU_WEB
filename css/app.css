@@ -7,6 +7,27 @@
   margin-right: auto;
 }
 
+/*index.html*/
+.index-bottom{
+  position: fixed;;
+  bottom: 0px;
+  width:100%;
+
+}
+.index-doc-am-g{
+  padding: 0 auto;
+  text-align: center;
+  height: 4rem;
+}
+.index-doc-am-g div{
+  height: 4rem;
+  border-left: 1px solid black;
+  border-top: 1px solid black;
+  border-color: rgba(0,0,0,0.7)
+}
+.noborder{
+    border-left: none!important;
+}
 /* 登陆logo */
 .myapp-login-logo { font-size: 130px; color: #ff6a4c;}
 

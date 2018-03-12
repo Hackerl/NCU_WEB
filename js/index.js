@@ -24,4 +24,13 @@
     $('#introduce_btn').click(function () {
 		$(location).attr('href', 'introduce.html');
     });
+
+    $('#user_btn').click(function () {
+		$(location).attr('href', 'user.html');
+    });
+
+    $('#sendmessage_btn').click(function () {
+		$(location).attr('href', 'contact.html');
+    });
+
 })(jQuery);
