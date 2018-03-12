@@ -6,14 +6,15 @@ var post_json = function(post_url, post_data, call_back) {
 		data: JSON.stringify(post_data),
 		dataType: "json",
 		success: function (result) {
-			  if(result.error == 0){
-					call_back(result);
-				}else{
-					alert(result.msg)
-				}
-
+			call_back(result);
 		},
 		error: function (result) {
 		}
 	});
-}  
+}
+
+var get_json = function(get_url, call_back){
+	$.getJSON(get_url, function(result){
+		call_back(result);
+	});
+}
