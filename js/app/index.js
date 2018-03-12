@@ -18,7 +18,7 @@
     });
 
     $('#contact_btn').click(function () {
-		$(location).attr('href', 'login.html');
+		$(location).attr('href', 'contact.html');
     });
 
     $('#introduce_btn').click(function () {
