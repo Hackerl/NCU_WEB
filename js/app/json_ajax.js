@@ -14,7 +14,7 @@ var post_json = function(post_url, post_data, call_back) {
 }
 
 var get_json = function(get_url, call_back){
-	$.getJSON(get_url, function(result){
+	$.getJSON("http://127.0.0.1:5000"+ get_url, function(result){
 		call_back(result);
 	});
 }
