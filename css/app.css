@@ -23,7 +23,7 @@
 .myapp-login-form-shortcut .myapp-login-form-hr { background: #ccc;  position: absolute; top:50%; left:0; right:0;display: block;  width: 100%; z-index: 1;}
 .myapp-login-form-shortcut .myapp-login-form-hr-font { display: inline-block; padding: 0 16px; background: #fff; position: relative; font-size: 12px; color: #ccc; z-index: 2;}
 .myapp-login-form-listico { padding-top: 30px;}
-.myapp-login-form-listico .am-icon-btn { width: 80px; height: 80px; line-height: 80px; font-size: 30px;}
+.myapp-login-form-listico .am-icon-btn { width: 75px; height: 75px; line-height: 75px; font-size: 30px;}
 .myapp-login-form-listico .am-icon-btn:hover { opacity: .9;}
 
 
