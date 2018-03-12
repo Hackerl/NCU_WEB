@@ -10,7 +10,7 @@
     });
 
     $('#wiki_btn').click(function () {
-		$(location).attr('href', 'login.html');
+		$(location).attr('href', 'wiki.html');
     });
 
     $('#suggest_btn').click(function () {
