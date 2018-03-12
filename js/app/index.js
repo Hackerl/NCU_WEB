@@ -24,4 +24,11 @@
     $('#introduce_btn').click(function () {
 		$(location).attr('href', 'login.html');
     });
+
+    var get_userinfo = function(){
+      var callback = function(result){
+        
+      }
+      get_json("/userinfo", callback)
+    }
 })(jQuery);

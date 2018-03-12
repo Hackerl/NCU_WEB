@@ -10,4 +10,9 @@
         }
 		post_json("/login",{"username": username, "password": password}, call_back)
 	});
+
+	$('#register_btn').click(function () {
+        $(location).attr('href', 'register.html');
+	});
+
 })(jQuery);
