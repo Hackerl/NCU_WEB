@@ -1,6 +1,32 @@
 (function($) {
 	'use strict';
 
+    $(function() { //上传按钮
+        $('#upload_btn').upload({
+          header: {
+            url: 'http://127.0.0.1:5000/upload',
+            complete: function(res) {
+                console.log(res)
+                var result = res.responseJSON;
+                console.log(result)
+                if(result.error == 0){
+                    $('#sethead_btn').click(function () {   //绑定确定按钮
+                        var call_back = function(result_j){
+                        }
+                        post_json("/sethead",{"head_url": result.head_url}, call_back);
+                    })
+                }else{//上传失败
+                    
+                }
+            },
+            error: function(res) {
+              console.log(res)
+            }
+          }
+        })
+      })
+
+
 	$('#reset_password_btn').click(function () { //确认重置密码按钮
 		var oldpassword = $("#oldpassword").val()
         var newpassword = $("#newpassword").val()
