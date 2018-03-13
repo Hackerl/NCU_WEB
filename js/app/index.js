@@ -25,14 +25,6 @@
 		$(location).attr('href', 'login.html');
     });
 
-    $('#user_btn').click(function () {
-		$(location).attr('href', 'user.html');
-    });
-
-    $('#sendmessage_btn').click(function () {
-		$(location).attr('href', 'chat.html');
-    });
-
     var get_userinfo = function(){
       var callback = function(result){
         
