@@ -5,7 +5,7 @@
     $(function(){
         var callback = function(result){
             if(result.error == 0){
-                $('#head_picture').attr('src', result.head);  
+                $('#head_picture').attr('src', result.head);
                 $('#username').val(result.username)
                 $('#email').val(result.email)
                 $('#phone').val(result.phone)
@@ -19,17 +19,17 @@
           header: {
             url: '/api/upload',
             complete: function(res) {
-                console.log(res)
                 var result = res.responseJSON;
-                console.log(result)
                 if(result.error == 0){
                     $('#sethead_btn').click(function () {   //绑定确定按钮
                         var call_back = function(result_j){
                         }
                         post_json("/sethead",{"head_url": result.head_url}, call_back);
                     })
-                }else{//上传失败
-                    
+                }else{//上传失败 显示悬浮窗
+                    var $modal = $('#result-alert');
+                    $modal.modal();
+                    $('#post_result_text').text(result.msg);
                 }
             },
             error: function(res) {
@@ -51,9 +51,6 @@
 			var call_back = function(result){
 				if(result.error == 0){
 					$('#post_result_text').text("提交成功");
-					$('#confirm_btn').click(function () {
-						$(location).attr('href', 'index.html');
-					});
 				}else{
 					$('#post_result_text').text(result.msg);
 				}
@@ -74,7 +71,11 @@
             $modal.modal();
     
             var call_back = function(result){
-                //alert(result);
+                if(result){
+                    $('#post_result_text').text("修改成功");
+                }else{
+                    $('#post_result_text').text(result.msg);
+                }
             }
             post_json("/resetpwd",{"oldpassword": oldpassword, "newpassword": newpassword}, call_back);
         }
@@ -90,7 +91,11 @@
             $modal.modal();
             
             var call_back = function(result){
-                //alert(result);
+                if(result){
+                    $('#post_result_text').text("修改成功");
+                }else{
+                    $('#post_result_text').text(result.msg);
+                }
             }
             post_json("/setinfo",{"username": username, "email": email, "phone": phone}, call_back);
         }
@@ -104,22 +109,6 @@
         }
 		post_json("/queryissue", {"issueid": issueid }, call_back);
     });
-
-    $('#show_suggest_info').click(function () { //查看建议信息
-		var suggestid = $("#suggestid").val()
-
-        var call_back = function(result){
-            alert(result);
-        }
-		post_json("/querysuggest", {"suggestid": suggestid }, call_back);
-    });
-
-    var get_all_suggestions = function(){  //获取全部建议
-        var call_back = function(result){
-            alert(result);
-        }
-        get_json("/suggestions", call_back);
-    }
 
     var get_all_issues = function(){  //获取全部维权信息
         var call_back = function(result){
