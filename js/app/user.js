@@ -5,7 +5,7 @@
     $(function(){
         var callback = function(result){
             if(result.error == 0){
-                $('#head_picture').src = result.head
+                $('#head_picture').attr('src', result.head);  
                 $('#username').val(result.username)
                 $('#email').val(result.email)
                 $('#phone').val(result.phone)
