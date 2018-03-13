@@ -14,7 +14,7 @@
     });
 
     $('#suggest_btn').click(function () {
-		$(location).attr('href', 'suggest.html');
+		$(location).attr('href', 'user.html');
     });
 
     $('#contact_btn').click(function () {

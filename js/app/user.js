@@ -26,18 +26,45 @@
         })
     })
 
+    $('#suggest_submit_btn').click(function () {  //建议意见提交按钮
+		var $btn = $(this)
+		var title = $("#title").val()
+		var content = $("#content").val()
+
+		if(title && content){
+			var $modal = $('#result-alert');
+            $modal.modal();
+
+			var call_back = function(result){
+				if(result.error == 0){
+					$('#post_result_text').text("提交成功");
+					$('#confirm_btn').click(function () {
+						$(location).attr('href', 'index.html');
+					});
+				}else{
+					$('#post_result_text').text(result.msg);
+				}
+			}
+			post_json("/newsuggest",{"title": title, "content": content}, call_back);
+		}
+	}
+	);
+
+
 	$('#reset_password_btn').click(function () { //确认重置密码按钮
 		var oldpassword = $("#oldpassword").val()
         var newpassword = $("#newpassword").val()
         var newpassword_confirm = $("#newpassword_confirm").val()
 
-        var $modal = $('#result-alert');  //结果悬浮窗
-        $modal.modal();
-
-        var call_back = function(result){
-            alert(result);
+        if(oldpassword && newpassword && newpassword == newpassword_confirm){
+            var $modal = $('#result-alert');  //结果悬浮窗
+            $modal.modal();
+    
+            var call_back = function(result){
+                //alert(result);
+            }
+            post_json("/resetpwd",{"oldpassword": oldpassword, "newpassword": newpassword}, call_back);
         }
-        post_json("/resetpwd",{"oldpassword": oldpassword, "newpassword": newpassword}, call_back);
     });
 
     $('#set_info_btn').click(function () { //设置用户信息按钮
@@ -45,10 +72,15 @@
         var email = $("#email").val()
         var phone = $("#phone").val()
 
-        var call_back = function(result){
-            alert(result);
+        if(username && email && phone){
+            var $modal = $('#result-alert');  //结果悬浮窗
+            $modal.modal();
+            
+            var call_back = function(result){
+                //alert(result);
+            }
+            post_json("/setinfo",{"username": username, "email": email, "phone": phone}, call_back);
         }
-		post_json("/setinfo",{"username": username, "email": email, "phone": phone}, call_back);
     });
 
     $('#show_issue_info').click(function () {  //查看维权信息
