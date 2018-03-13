@@ -1,31 +1,23 @@
 (function($) {
 	'use strict';
+	$('#user-infochage-btn').click(function(){
+	  $(".user-edit-info").css("height",$(document).height());
+	  $(".user-edit-info").css("width",$(document).width());
+	  $(".user-edit-info").show();
+	})
 
-    $(function() { //上传按钮
-        $('#upload_btn').upload({
-          header: {
-            url: 'http://127.0.0.1:5000/upload',
-            complete: function(res) {
-                console.log(res)
-                var result = res.responseJSON;
-                console.log(result)
-                if(result.error == 0){
-                    $('#sethead_btn').click(function () {   //绑定确定按钮
-                        var call_back = function(result_j){
-                        }
-                        post_json("/sethead",{"head_url": result.head_url}, call_back);
-                    })
-                }else{//上传失败
-                    
-                }
-            },
-            error: function(res) {
-              console.log(res)
-            }
-          }
-        })
-      })
+	$('#user-pwdchage-btn').click(function(){
+	  $(".user-chage-psw").css("height",$(document).height());
+	  $(".user-chage-psw").css("width",$(document).width());
+	  $(".user-chage-psw").show();
+	})
 
+	$('#cancel_resetpsw_btn').click(function(){
+	    $(".user-chage-psw").hide();
+	})
+	$('#cancel_setinfo_btn').click(function(){
+	    $(".user-edit-info").hide();
+	})
 
 	$('#reset_password_btn').click(function () { //确认重置密码按钮
 		var oldpassword = $("#oldpassword").val()
