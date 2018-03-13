@@ -55,11 +55,18 @@ margin-top: -4rem
   background-color: white;
   margin-bottom: 1rem;
 }
-.user-edit-info{
-  float: left;
-  z-index: 999;
-  background-color: black;
-  opacity: .5;
-  width: 100%;
+
+.user-edit-info ,.user-chage-psw{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  filter: alpha(opacity=60);
+  opacity:0.8;
+  -moz-opacity:0.8;
+  background-color: #777;
+  display: none;
   height: 100%;
+}
+#reset_password_btn, #set_info_btn{
+  margin-right: 3rem;
 }

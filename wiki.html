@@ -18,46 +18,16 @@
 <div class="am-u-sm-10 am-u-sm-centered wiki-search">
   <form class="am-form">
     <div class="am-input-group">
-      <input type="text" class="am-form-field" placeholder="搜素">
-      <span class="am-input-group-label"><i class="am-icon-search am-icon-fw"></i></span>
+      <input id="keyword" type="text" class="am-form-field" placeholder="搜素">
+      <span id="search_btn" class="am-input-group-label"><i class="am-icon-search am-icon-fw"></i></span>
     </div>
   </form>
 </div>
 
-<ul class="am-list am-list-static">
-  <li class="am-panel-li">
-    <div class="am-panel-wrap">
-      <div class="am-panel-hd">面板标题 <span class="am-fr"><i class="am-icon-angle-right am-icon-fw"></i><i class="am-icon-angle-down am-icon-fw"></i></span></div>
-      <div class="am-panel-bd">
-        <div class="am-article-bd">
-          每个人都有一个死角， 自己走不出来，别人也闯不进去。我把最深沉的秘密放在那里。每个人都有一道伤口， 或深或浅，盖上布，以为不存在。
-        </div>
-      </div>
-    </div>
-  </li>
-  <li class="am-panel">
-    <div class=" ">
-      <div class="am-panel-hd">面板标题 <span class="am-fr"><i class="am-icon-angle-right am-icon-fw"></i> <i class="am-icon-angle-down am-icon-fw"></i></span></div>
-      <div class="am-panel-bd">
-        <div class="am-article-bd">
-          每个人都有一个死角， 自己走不出来，别人也闯不进去。我把最深沉的秘密放在那里。每个人都有一道伤口， 或深或浅，盖上布，以为不存在。
-        </div>
-      </div>
-    </div>
-  </li>
-  <li>
-    <div class="am-panel">
-      <div class="am-panel-hd">面板标题 <span class="am-fr"><i class="am-icon-angle-right am-icon-fw"></i><i class="am-icon-angle-down am-icon-fw"></i></span></div>
-      <div class="am-panel-bd">
-        <div class="am-article-bd">
-          每个人都有一个死角， 自己走不出来，别人也闯不进去。我把最深沉的秘密放在那里。每个人都有一道伤口， 或深或浅，盖上布，以为不存在。
-        </div>
-      </div>
-    </div>
-  </li>
+<ul id="wiki_list" class="am-list am-list-static">
 </ul>
 <div class="am-u-sm-5 am-u-sm-centered">
-  <button type="submit" class="am-btn am-btn-warning am-btn-block denfend-button">下一页</button>
+  <button type="button" class="am-btn am-btn-warning am-btn-block denfend-button">下一页</button>
 </div>
 </div>
 
@@ -70,7 +40,7 @@
 <script src="assets/js/amazeui.ie8polyfill.min.js"></script>
 <![endif]-->
 <script src="js/amazeui.min.js"></script>
-<script src="js/wiki.js"></script>
-<script src="js/json_ajax.js"></script>
+<script src="js/app/json_ajax.js"></script>
+<script src="js/app/wiki.js"></script>
 </body>
 </html>
