@@ -1,26 +1,6 @@
 (function($) {
 	'use strict';
 
-	$('#user-infochage-btn').click(function(){
-		$(".user-edit-info").css("height",$(document).height());
-		$(".user-edit-info").css("width",$(document).width());
-		$(".user-edit-info").show();
-	})
-
-	$('#user-pwdchage-btn').click(function(){
-		$(".user-chage-psw").css("height",$(document).height());
-		$(".user-chage-psw").css("width",$(document).width());
-		$(".user-chage-psw").show();
-	})
-
-	$('#cancel_resetpsw_btn').click(function(){
-			$(".user-chage-psw").hide();
-	})
-	$('#cancel_setinfo_btn').click(function(){
-			$(".user-edit-info").hide();
-	})
-
-
 	$('#reset_password_btn').click(function () { //确认重置密码按钮
 		var oldpassword = $("#oldpassword").val()
         var newpassword = $("#newpassword").val()
