@@ -6,7 +6,7 @@
     });
     
     $('#lost_found_btn').click(function () {
-		$(location).attr('href', 'login.html');
+		$(location).attr('href', 'lost_found.html');
     });
 
     $('#wiki_btn').click(function () {
