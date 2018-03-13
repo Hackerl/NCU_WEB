@@ -24,17 +24,20 @@
             }
           }
         })
-})
+    })
 
 	$('#reset_password_btn').click(function () { //确认重置密码按钮
 		var oldpassword = $("#oldpassword").val()
         var newpassword = $("#newpassword").val()
         var newpassword_confirm = $("#newpassword_confirm").val()
 
+        var $modal = $('#result-alert');  //结果悬浮窗
+        $modal.modal();
+
         var call_back = function(result){
             alert(result);
         }
-		post_json("/resetpwd",{"oldpassword": oldpassword, "newpassword": newpassword}, call_back);
+        post_json("/resetpwd",{"oldpassword": oldpassword, "newpassword": newpassword}, call_back);
     });
 
     $('#set_info_btn').click(function () { //设置用户信息按钮
