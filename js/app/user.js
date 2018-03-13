@@ -1,10 +1,21 @@
 (function($) {
 	'use strict';
 
+    //获取用户信息
+    var callback = function(result){
+        if(result.error == 0){
+            $('#head_picture').src = result.head
+            $('#username').val(result.username)
+            $('#email').val(result.email)
+            $('#phone').val(result.phone)
+        }
+    }
+    get_json("/userinfo", callback)
+
     $(function() { //上传按钮
         $('#upload_btn').upload({
           header: {
-            url: 'http://127.0.0.1:5000/upload',
+            url: '/api/upload',
             complete: function(res) {
                 console.log(res)
                 var result = res.responseJSON;

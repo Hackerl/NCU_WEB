@@ -31,5 +31,5 @@
       }
       get_json("/userinfo", callback)
     }
-    //get_userinfo();
+    get_userinfo();
 })(jQuery);
