@@ -1,6 +1,19 @@
 (function($) {
 	'use strict';
 
+    var my_head = "";
+    var my_username = "";
+    $(function(){
+        var callback = function(result){
+            if(result.error == 0){
+                my_head = result.head;
+                my_username = result.username;
+            }
+        }
+        get_json("/userinfo", callback);
+    })
+
+
 	/*发送消息*/
 	function send(headSrc,str){
 		var html="<div class='send'><div class='msg'><img src="+headSrc+" />"+
@@ -50,11 +63,12 @@
         var call_back = function(result){
             if(result.error == 0){
                 var my_userid = result.my_userid
+                $('#chatroom_users').text( result.chatroom_users);
                 $.each(result.messages , function(index, msg){
                     if(msg.send_userid == my_userid){
-                        show("./img/touxiangm.png" , msg.content);
+                        show(msg.head , msg.content);
                     }else{
-                        send("./img/touxiangm.png" , msg.content);
+                        send(msg.head , msg.content);
                     }
                 })
             }
@@ -90,7 +104,7 @@
 
                     var call_back = function(result){
                         if(result.error == 0){
-                            show("./img/touxiangm.png" , result.content)
+                            show(my_head , result.content);
                         }
                     }
                     post_json("/sendmsg",{"chatid": result.id, "content": message}, call_back);

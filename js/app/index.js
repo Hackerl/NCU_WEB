@@ -22,7 +22,7 @@
     });
 
     $('#introduce_btn').click(function () {
-		$(location).attr('href', 'login.html');
+		$(location).attr('href', 'about.html');
     });
 
     var get_userinfo = function(){
