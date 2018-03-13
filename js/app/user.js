@@ -2,15 +2,17 @@
 	'use strict';
 
     //获取用户信息
-    var callback = function(result){
-        if(result.error == 0){
-            $('#head_picture').src = result.head
-            $('#username').val(result.username)
-            $('#email').val(result.email)
-            $('#phone').val(result.phone)
+    $(function(){
+        var callback = function(result){
+            if(result.error == 0){
+                $('#head_picture').src = result.head
+                $('#username').val(result.username)
+                $('#email').val(result.email)
+                $('#phone').val(result.phone)
+            }
         }
-    }
-    get_json("/userinfo", callback)
+        get_json("/userinfo", callback);
+    })
 
     $(function() { //上传按钮
         $('#upload_btn').upload({
