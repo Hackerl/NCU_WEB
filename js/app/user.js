@@ -1,30 +1,58 @@
 (function($) {
 	'use strict';
 
-	$('#search_btn').click(function () {
-		var keyword = $("#keyword").val()
+	$('#reset_password_btn').click(function () { //确认重置密码按钮
+		var oldpassword = $("#oldpassword").val()
+        var newpassword = $("#newpassword").val()
+        var newpassword_confirm = $("#newpassword_confirm").val()
 
         var call_back = function(result){
             alert(result);
         }
-		post_json("/searchwiki",{"keyword": keyword}, call_back)
+		post_json("/resetpwd",{"oldpassword": oldpassword, "newpassword": newpassword}, call_back);
     });
 
-    var show_question = function(){
-        var $question = $(this)
-        var questionid = $question.id
+    $('#set_info_btn').click(function () { //设置用户信息按钮
+		var username = $("#username").val()
+        var email = $("#email").val()
+        var phone = $("#phone").val()
 
         var call_back = function(result){
             alert(result);
         }
-        post_json("http://127.0.0.1:5000/querywiki",{"questionid": questionid}, call_back)
+		post_json("/setinfo",{"username": username, "email": email, "phone": phone}, call_back);
+    });
+
+    $('#show_issue_info').click(function () {  //查看维权信息
+		var issueid = $("#issueid").val()
+
+        var call_back = function(result){
+            alert(result);
+        }
+		post_json("/queryissue", {"issueid": issueid }, call_back);
+    });
+
+    $('#show_suggest_info').click(function () { //查看建议信息
+		var suggestid = $("#suggestid").val()
+
+        var call_back = function(result){
+            alert(result);
+        }
+		post_json("/querysuggest", {"suggestid": suggestid }, call_back);
+    });
+
+    var get_all_suggestions = function(){  //获取全部建议
+        var call_back = function(result){
+            alert(result);
+        }
+        get_json("/suggestions", call_back);
     }
 
-    (function(){
+    var get_all_issues = function(){  //获取全部维权信息
         var call_back = function(result){
-        alert(result);
+            alert(result);
         }
-        get_json("http://127.0.0.1:5000/wiki", call_back);
-    })();
+        get_json("/userissues", call_back);
+    }
 
 })(jQuery);
