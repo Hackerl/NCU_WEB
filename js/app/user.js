@@ -70,6 +70,7 @@
         if(oldpassword && newpassword){
             var $modal = $('#result-alert');  //结果悬浮窗
             $modal.modal();
+
             if(newpassword == newpassword_confirm){
                 var call_back = function(result){
                     if(result.error == 0){
