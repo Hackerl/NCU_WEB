@@ -1,7 +1,13 @@
 (function($) {
 	'use strict';
-
-	$('#defend_btn').click(function () {
+    var token = localStorage.getItem("token")
+    console.log(token)
+    console.log($.cookie('token'))
+    if(token){
+      $.cookie('token', token, { expires: 7 })
+    }
+    
+	  $('#defend_btn').click(function () {
 		$(location).attr('href', 'defend.html');
     });
     
