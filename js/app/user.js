@@ -18,7 +18,8 @@
 
 
     $('#show_issues_btn').click(function () {  //显示维权信息按钮
-        $('#issues_table').empty();
+        $('#issues_table').children("tbody").remove(); //删除表格内容
+        
         var $modal = $('#defend-popup');
         $modal.modal();
 
