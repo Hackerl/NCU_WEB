@@ -1,10 +1,11 @@
 (function($) {
 	'use strict';
-    var token = localStorage.getItem("token")
-    console.log(token)
-    console.log($.cookie('token'))
-    if(token){
-      $.cookie('token', token, { expires: 7 })
+
+    if($.cookie('token') == null){ //如果当前有cookie
+      var token = localStorage.getItem("token") //取得cookie
+      if(token){
+        $.cookie('token', token, { expires: 10 }) //设置cookie
+      }
     }
     
 	  $('#defend_btn').click(function () {
