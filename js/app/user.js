@@ -67,18 +67,21 @@
         var newpassword = $("#newpassword").val()
         var newpassword_confirm = $("#newpassword_confirm").val()
 
-        if(oldpassword && newpassword && newpassword == newpassword_confirm){
+        if(oldpassword && newpassword){
             var $modal = $('#result-alert');  //结果悬浮窗
             $modal.modal();
-    
-            var call_back = function(result){
-                if(result){
-                    $('#post_result_text').text("修改成功");
-                }else{
-                    $('#post_result_text').text(result.msg);
+            if(newpassword == newpassword_confirm){
+                var call_back = function(result){
+                    if(result.error == 0){
+                        $('#post_result_text').text("修改成功");
+                    }else{
+                        $('#post_result_text').text(result.msg);
+                    }
                 }
+                post_json("/resetpwd",{"oldpassword": oldpassword, "newpassword": newpassword}, call_back);
+            }else{
+                $('#post_result_text').text("密码不一致");
             }
-            post_json("/resetpwd",{"oldpassword": oldpassword, "newpassword": newpassword}, call_back);
         }
     });
 
