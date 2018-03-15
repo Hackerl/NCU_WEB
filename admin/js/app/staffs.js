@@ -1,6 +1,24 @@
 (function ($) {
     'use strict';
 
+    //添加工作人员按钮
+    $('#add_staff_submit_btn').click(function () {
+
+        var staff_name = $('#staff_name').val();
+        var staff_email = $('#staff_email').val();
+
+        var call_back = function (result) {
+            if (result.error == 0) {
+
+            } else {
+
+            }
+        }
+        //更新issue
+        post_json("/admin_addstaff", { "status": update_status, "comment": update_comment, "issueid": issueid }, call_back);
+    });
+
+
     var admin_get_all_staffs = function () {  //获取全部suggestions
         var call_back = function (result) {
             if (result.error == 0) {
@@ -16,7 +34,7 @@
 
                     var call_back = function (result) {
                         if (result.error == 0) {
-                            
+
                         } else {
 
                         }
