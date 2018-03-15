@@ -1,0 +1,36 @@
+.myapp-login-logo { font-size: 130px; color: #ff6a4c;}
+
+  .scrollspy-nav {
+    top: 0;
+    z-index: 100;
+    background: #5085FF;
+    width: 100%;
+    padding: 0 10px;
+    border-radius: 6px;
+  }
+
+  .scrollspy-nav ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  .scrollspy-nav li {
+    display: inline-block;
+    list-style: none;
+  }
+
+  .scrollspy-nav a {
+    color: #fff;
+    padding: 10px 20px;
+    display: inline-block;
+  }
+
+  .scrollspy-nav a.am-active {
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .am-panel {
+    margin-top: 20px;
+  }
