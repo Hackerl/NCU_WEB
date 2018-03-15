@@ -79,7 +79,7 @@
                         }
                     }
                     //更新issue
-                    post_json("/getissue", { "issueid": issueid }, callback);
+                    post_json("/getissue", { "issueid": issueid }, call_back);
                 });
             }
 
