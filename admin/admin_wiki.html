@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="keywords" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>工作管理</title>
+    <title>常见问题</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="Cache-Control" content="no-siteapp" />
     <link rel="stylesheet" href="css/amazeui.min.css">
@@ -33,23 +33,34 @@
 <body>
     <div class="am-g">
         <div class="add-ico-div">
-            <i id="add_staff_btn" class="am-icon-btn am-danger am-icon-user-plus" data-am-modal="{target: '#add-staff-prompt'}"></i>
+            <i id="add_wiki_btn" class="am-icon-btn am-danger am-icon-plus"></i>
         </div>
         <table class="am-table">
             <thead>
                 <tr>
-                    <th>姓名</th>
-                    <th>邮箱</th>
+                    <th>标题</th>
                     <th>操作</th>
                 </tr>
             </thead>
-            <tbody id="staff_list">
+            <tbody id="wiki_list">
             </tbody>
         </table>
     </div>
 
+    <!--查看问题悬浮窗-->
+    <div class="am-modal am-modal-no-btn" tabindex="-1" id="show-question-modal">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">内容
+                <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+            </div>
+            <div id="question_content" class="am-modal-bd">
+                
+            </div>
+        </div>
+    </div>
+
     <!--删除弹出窗-->
-    <div class="am-modal am-modal-confirm" tabindex="-1" id="delete-staff-confirm">
+    <div class="am-modal am-modal-confirm" tabindex="-1" id="delete-question-confirm">
         <div class="am-modal-dialog">
             <div class="am-modal-hd">
                 删除
@@ -57,7 +68,7 @@
             </div>
             <div class="am-modal-bd">
                 <span class="am-modal-bd-ico am-icon-exclamation-circle am-text-warning"></span>
-                <p>确定要删除此工作人员？</p>
+                <p>确定要删除此问题？</p>
             </div>
             <div class="am-modal-footer">
                 <button type="button" class="am-btn am-modal-btn am-btn-default am-btn-hollow" data-am-modal-cancel>取消</button>
@@ -66,21 +77,21 @@
         </div>
     </div>
 
-    <!--增加员工浮窗-->
-    <div class="am-modal am-modal-prompt" tabindex="-1" id="add-staff-prompt">
+    <!--增加常见问题浮窗-->
+    <div class="am-modal am-modal-prompt" tabindex="-1" id="add-question-prompt">
             <div class="am-modal-dialog">
                 <div class="am-modal-hd">
-                    新增人员
+                    新增问题
                     <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
                 </div>
                 <form data-am-validator>
                     <div class="am-modal-bd">
-                        <input id="staff_name" type="text" class="am-modal-prompt-input" placeholder="姓名" required/>
-                        <input id="staff_email" type="email" class="am-modal-prompt-input" placeholder="邮箱" required/>
+                        <input id="add_question_title" type="text" class="am-modal-prompt-input" placeholder="标题" required/>
+                        <input id="add_question_content" type="text" class="am-modal-prompt-input" placeholder="内容" required/>
                     </div>
                     <div class="am-modal-footer">
                         <button type="button" class="am-btn am-modal-btn am-btn-default am-btn-hollow" data-am-modal-cancel>取消</button>
-                        <button id="add_staff_submit_btn" type="button" class="am-btn am-modal-btn am-btn-primary" data-am-modal-confirm>确定</button>
+                        <button id="add_wiki_submit_btn" type="button" class="am-btn am-modal-btn am-btn-primary" data-am-modal-confirm>确定</button>
                     </div>
                 </form>
             </div>
@@ -96,7 +107,7 @@
 <![endif]-->
     <script src="js/amazeui.min.js"></script>
     <script src="js/app/json_ajax.js"></script>
-    <script src="js/app/staffs.js"></script>
+    <script src="js/app/admin_wiki.js"></script>
 </body>
 
 </html>
