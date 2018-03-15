@@ -23,7 +23,7 @@
                     }
                 }) // 显示所有issue
 
-                //绑定issue按钮
+                //绑定删除issue按钮
                 $('#issues_list').find('.am-btn-warning').click(function () {
                     $('#delete-issue-confirm').modal({
                         relatedTarget: this,
@@ -36,7 +36,7 @@
 
                                 }
                             }
-                            post_json("/delissue", { "issueid": issueid }, call_back); //删除issue
+                            post_json("/admin_delissue", { "issueid": issueid }, call_back); //删除issue
                         },
                         onCancel: function (e) {
                         }
