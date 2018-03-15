@@ -15,7 +15,7 @@
             }
         }
         //更新issue
-        post_json("/admin_addstaff", { "status": update_status, "comment": update_comment, "issueid": issueid }, call_back);
+        post_json("/admin_addstaff", { "name": staff_name, "email": staff_email }, call_back);
     });
 
 
