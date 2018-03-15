@@ -36,7 +36,7 @@
 
                                 }
                             }
-                            post_json("/delissue", { "issueid": issueid }, callback); //删除issue
+                            post_json("/delissue", { "issueid": issueid }, call_back); //删除issue
                         },
                         onCancel: function (e) {
                         }
@@ -61,7 +61,7 @@
                         }
                     }
                     //更新issue
-                    post_json("/updateissue", { "status": update_status, "comment": update_comment, "issueid": issueid }, callback);
+                    post_json("/updateissue", { "status": update_status, "comment": update_comment, "issueid": issueid }, call_back);
                 });
 
                 //绑定查看按钮
