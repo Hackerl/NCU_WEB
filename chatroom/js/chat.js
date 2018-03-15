@@ -1,5 +1,7 @@
 var my_head = "";
 var my_username = "";
+var SelectImg = null;
+
 $(function () {
     var callback = function (result) {
         if (result.error == 0) {
@@ -12,7 +14,7 @@ $(function () {
 
 var get_nowtime = function () {
     function p(s) {
-        return s < 10 ? '0' + s: s;
+        return s < 10 ? '0' + s : s;
     }
     var myDate = new Date();
     //获取当前年
@@ -73,20 +75,18 @@ var init_chatBox_click = function () {
 
 
 var show_msg_my = function (msg) {
-    $(".chatBox-content-demo").append("<div class=\"clearfloat\">" +
-        "<div class=\"author-name\"><small class=\"chat-date\">" + msg.send_time + "</small> </div> " +
-        "<div class=\"right\"> <div class=\"chat-message\"> " + msg.content + " </div> " +
-        "<div class=\"chat-avatars\"><img src=\"" + msg.head + "\" alt=\"头像\" /></div> </div> </div>");
-
+    $(".chatBox-content-demo").append('<div class="clearfloat"><div class="author-name"><small class="chat-date">' + msg.send_time + '</small></div><div class="right"><div class="chat-message">' + msg.content + '</div><div class="chat-avatars"><img src="' + msg.head + '" alt="头像" /></div></div></div>');
 }
-
 var show_msg_other = function (msg) {
-    $(".chatBox-content-demo").append("<div class=\"clearfloat\">" +
-        "<div class=\"author-name\"><small class=\"chat-date\">" + msg.send_time + "</small> </div> " +
-        "<div class=\"left\"> <div class=\"chat-message\"> " + msg.content + " </div> " +
-        "<div class=\"chat-avatars\"><img src=\"" + msg.head + "\" alt=\"头像\" /></div> </div> </div>");
+    $(".chatBox-content-demo").append('<div class="clearfloat"><div class="author-name"><small class="chat-date">' + msg.send_time + '</small></div><div class="left"><div class="chat-avatars"><img src="' + msg.head + '" alt="头像"></div><div class="chat-message">' + msg.content + '</div></div></div>');
 }
 
+var show_img_my = function (msg) {
+    $(".chatBox-content-demo").append('<div class="clearfloat"><div class="author-name"><small class="chat-date">' + msg.send_time + '</small></div><div class="right"><div class="chat-message"><img src="' + msg.content + '"></div><div class="chat-avatars"><img src="' + msg.head + '" alt="头像" /></div></div></div>');
+}
+var show_img_other = function (msg) {
+    $(".chatBox-content-demo").append('<div class="clearfloat"><div class="author-name"><small class="chat-date">' + msg.send_time + '</small></div><div class="left"><div class="chat-avatars"><img src="' + msg.head + '" alt="头像"></div><div class="chat-message"><img src="' + msg.content + '"></div></div></div>');
+}
 
 
 //获取完消息列表后，绑定消息点击事件
@@ -130,11 +130,23 @@ var init_chat_list = function () {
                         var my_userid = result.my_userid
 
                         $.each(result.messages, function (index, msg) {
-                            if (msg.send_userid == my_userid) {
-                                show_msg_my(msg);
-                            } else {
-                                show_msg_other(msg);
+                            switch (msg.type) {
+                                case 0:
+                                    if (msg.send_userid == my_userid) {
+                                        show_msg_my(msg);
+                                    } else {
+                                        show_msg_other(msg);
+                                    }
+                                    break;
+                                case 1:
+                                    if (msg.send_userid == my_userid) {
+                                        show_img_my(msg);
+                                    } else {
+                                        show_img_other(msg);
+                                    }
+                                    break;
                             }
+
                         })
                         //聊天框默认最底部
                         $(document).ready(function () {
@@ -172,7 +184,7 @@ var init_chat_windows = function () {
                 if (result.error == 0) {
                 }
             }
-            post_json("/sendmsg", { "chatid": chatid, "content": textContent }, call_back);
+            post_json("/sendmsg", { "chatid": chatid, "content": textContent, "type": 0 }, call_back);
 
             //发送后清空输入框
             $(".div-textarea").html("");
@@ -215,13 +227,14 @@ var init_chat_windows = function () {
     });
 
     //发送图片
-    function selectImg(pic) {
+    SelectImg = function selectimg(pic) {
         if (!pic.files || !pic.files[0]) {
             return;
         }
         var reader = new FileReader();
         reader.onload = function (evt) {
             var images = evt.target.result;
+            console.log(images)
             $(".chatBox-content-demo").append("<div class=\"clearfloat\">" +
                 "<div class=\"author-name\"><small class=\"chat-date\">2017-12-02 14:26:58</small> </div> " +
                 "<div class=\"right\"> <div class=\"chat-message\"><img src=" + images + "></div> " +
@@ -231,8 +244,31 @@ var init_chat_windows = function () {
                 $("#chatBox-content-demo").scrollTop($("#chatBox-content-demo")[0].scrollHeight);
             });
         };
+        console.log(pic.files[0])
         reader.readAsDataURL(pic.files[0]);
 
+        var formData = new FormData();
+        formData.append('file', pic.files[0]);  //添加图片信息的参数
+        $.ajax({
+            url: '/api/upload',
+            type: 'POST',
+            cache: false, //上传文件不需要缓存
+            data: formData,
+            processData: false, // 告诉jQuery不要去处理发送的数据
+            contentType: false, // 告诉jQuery不要去设置Content-Type请求头
+            success: function (result) {
+                if (result.error == 0) {
+                    var call_back = function (result_r) {
+                    }
+                    var chatid = $('#user-chatBox').data("id")
+                    post_json("/sendmsg", { "chatid": chatid, "content": result.picture_url, "type": 1 }, call_back);
+                } else {
+                }
+            },
+            error: function (result) {
+                tipTopShow("上传失败");
+            }
+        })
     }
 }
 
@@ -240,7 +276,7 @@ var get_chat_list = function () {
     var call_back = function (result) {
         if (result.error == 0) {
             $.each(result.chats, function (index, obj) {
-                var chat = $('<div data-id="' + obj.chatroom.id + '" class="chat-list-people"><div><img src="' + obj.users[0].head + '" alt="头像"></div><div class="chat-name"><p>' + obj.users[0].username + '</p></div><div class="message-num">12</div></div>')
+                var chat = $('<div data-id="' + obj.chatroom.id + '" class="chat-list-people"><div><img src="' + obj.head + '" alt="头像"></div><div class="chat-name"><p>' + obj.name + '</p></div><div class="message-num">12</div></div>')
                 $('#chatroom_list').append(chat);
             })
             init_chat_list() // 获取全部聊天消息 并列出后 绑定每个私信点击事件
