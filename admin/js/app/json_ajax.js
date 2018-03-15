@@ -7,7 +7,7 @@ var post_json = function(post_url, post_data, call_back) {
 		dataType: "json",
 		success: function (result) {
 			if(result.error == -2){
-				$(location).attr('href', 'login.html');
+				$(location).attr('href', '/login.html');
 			}
 			call_back(result);
 		},

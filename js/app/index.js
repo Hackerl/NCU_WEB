@@ -34,7 +34,11 @@
 
     var get_userinfo = function () {
         var callback = function (result) {
-
+            if(result.error == 0){
+                if(result.level == 0){
+                    $(location).attr('href', '/admin');
+                }
+            }
         }
         get_json("/userinfo", callback)
     }

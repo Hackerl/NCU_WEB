@@ -65,7 +65,7 @@ var initwindows = function () {
 var init_chatBox_click = function () {
     //打开/关闭聊天框
     $(".chat-close").click(function () {
-        $(location).attr('href', 'index.html');
+        history.go(-1);
     })
 
 }
@@ -235,7 +235,7 @@ var init_chat_windows = function () {
             $(".chatBox-content-demo").append("<div class=\"clearfloat\">" +
                 "<div class=\"author-name\"><small class=\"chat-date\">2017-12-02 14:26:58</small> </div> " +
                 "<div class=\"right\"> <div class=\"chat-message\"><img src=" + images + "></div> " +
-                "<div class=\"chat-avatars\"><img src=\"img/icon01.png\" alt=\"头像\" /></div> </div> </div>");
+                "<div class=\"chat-avatars\"><img src=\""+ my_head +"\" alt=\"头像\" /></div> </div> </div>");
             //聊天框默认最底部
             $(document).ready(function () {
                 $("#chatBox-content-demo").scrollTop($("#chatBox-content-demo")[0].scrollHeight);

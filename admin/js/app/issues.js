@@ -1,6 +1,72 @@
 (function ($) {
     'use strict';
 
+    var show_btn_click_event = function (element) {
+        element.click(function () {
+            var $btn = $(this)
+            var issueid = $($btn.parent().parent().children()[0]).data('id')
+            var $modal = $('#show-issue-modal');
+            $modal.modal();
+
+            var call_back = function (result) {
+                if (result.error == 0) {
+                    $('#issue_content').text(result.content);
+                } else {
+
+                }
+            }
+            //更新issue
+            post_json("/admin_queryissue", { "issueid": issueid }, call_back);
+        });
+    }
+
+    var del_btn_click_event = function (element) {
+        element.click(function () {
+            $('#delete-issue-confirm').modal({
+                relatedTarget: this,
+                onConfirm: function (e) {
+                    var issueid = $($(this.relatedTarget).parent().parent().children()[0]).data('id')
+                    var call_back = function (result) {
+                        if (result.error == 0) {
+
+                        } else {
+
+                        }
+                    }
+                    post_json("/admin_delissue", { "issueid": issueid }, call_back); //删除issue
+                },
+                onCancel: function (e) {
+                }
+            });
+        });
+    }
+
+    var update_btn_click_event = function (element) {
+        element.click(function () {
+            var $btn = $(this)
+            var issueid = $($btn.parent().parent().children()[0]).data('id')
+            var $modal = $('#update-issue-prompt');
+            $modal.modal();
+
+            //绑定确定按钮 更新issue
+            $('#update_issue_btn').click(function () {
+
+                var update_status = $('#update_status').val();
+                var update_comment = $('#update_comment').val();
+
+                var call_back = function (result) {
+                    if (result.error == 0) {
+
+                    } else {
+
+                    }
+                }
+                //更新issue
+                post_json("/admin_updateissue", { "status": update_status, "comment": update_comment, "issueid": issueid }, call_back);
+            });
+        });
+    }
+
     var admin_get_all_issues = function () {  //获取全部issue
         var call_back = function (result) {
             if (result.error == 0) {
@@ -24,67 +90,13 @@
                 }) // 显示所有issue
 
                 //绑定删除issue按钮
-                $('#issues_list').find('.am-btn-warning').click(function () {
-                    $('#delete-issue-confirm').modal({
-                        relatedTarget: this,
-                        onConfirm: function (e) {
-                            var issueid = $($(this.relatedTarget).parent().parent().children()[0]).data('id')
-                            var call_back = function (result) {
-                                if (result.error == 0) {
-
-                                } else {
-
-                                }
-                            }
-                            post_json("/admin_delissue", { "issueid": issueid }, call_back); //删除issue
-                        },
-                        onCancel: function (e) {
-                        }
-                    });
-                });
+                del_btn_click_event($('#issues_list').find('.am-btn-warning'));
 
                 //绑定处理按钮
-                $('#issues_list').find('.am-btn-primary').click(function () {
-                    var $btn = $(this)
-                    var issueid = $($btn.parent().parent().children()[0]).data('id')
-                    var $modal = $('#update-issue-prompt');
-                    $modal.modal();
-
-                    //绑定确定按钮 更新issue
-                    $('#update_issue_btn').click(function () {
-
-                        var update_status = $('#update_status').val();
-                        var update_comment = $('#update_comment').val();
-
-                        var call_back = function (result) {
-                            if (result.error == 0) {
-
-                            } else {
-
-                            }
-                        }
-                        //更新issue
-                        post_json("/admin_updateissue", { "status": update_status, "comment": update_comment, "issueid": issueid }, call_back);
-                    });
-                });
+                update_btn_click_event($('#issues_list').find('.am-btn-primary'));
 
                 //绑定查看按钮
-                $('#issues_list').find('.am-btn-success').click(function () {
-                    var $btn = $(this)
-                    var issueid = $($btn.parent().parent().children()[0]).data('id')
-                    var $modal = $('#show-issue-modal');
-                    $modal.modal();
-
-                    var call_back = function (result) {
-                        if (result.error == 0) {
-                            $('#issue_content').text(result.content);
-                        } else {
-
-                        }
-                    }
-                    //更新issue
-                    post_json("/admin_queryissue", { "issueid": issueid }, call_back);
-                });
+                show_btn_click_event($('#issues_list').find('.am-btn-success'));
             }
 
         }

@@ -17,7 +17,7 @@
     });
 
     $('#wiki_btn').click(function () {
-		$(location).attr('href', 'wiki.html');
+		$(location).attr('href', 'admin_wiki.html');
     });
 
     $('#admin_center_btn').click(function () {
@@ -31,4 +31,16 @@
     $('#staff_manage_btn').click(function () {
 		$(location).attr('href', 'staffs.html');
     });
+
+    var get_userinfo = function () {
+        var callback = function (result) {
+            if(result.error == 0){
+                if(result.level != 0){
+                    $(location).attr('href', '/login.html');
+                }
+            }
+        }
+        get_json("/userinfo", callback)
+    }
+    get_userinfo();
 })(jQuery);
