@@ -64,7 +64,7 @@
                             }
                         }
                         //更新issue
-                        post_json("/updateissue", { "status": update_status, "comment": update_comment, "issueid": issueid }, call_back);
+                        post_json("/admin_updateissue", { "status": update_status, "comment": update_comment, "issueid": issueid }, call_back);
                     });
                 });
 
@@ -83,13 +83,13 @@
                         }
                     }
                     //更新issue
-                    post_json("/getissue", { "issueid": issueid }, call_back);
+                    post_json("/admin_queryissue", { "issueid": issueid }, call_back);
                 });
             }
 
         }
 
-        get_json("/allissues", call_back);
+        get_json("/admin_allissues", call_back);
     }
     admin_get_all_issues();
 

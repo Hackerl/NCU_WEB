@@ -1,0 +1,56 @@
+<!doctype html>
+<html class="no-js">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>维权管理</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="stylesheet" href="css/amazeui.min.css">
+</head>
+
+<body>
+    <div class="am-g">
+        <table id="suggetion_list" class="am-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>标题</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody id="suggetion_table">
+            </tbody>
+        </table>
+    </div>
+
+    <!--正文悬浮窗-->
+    <div class="am-modal am-modal-no-btn" tabindex="-1" id="show-suggestion-modal">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">内容
+                <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+            </div>
+            <div id="suggestion_content" class="am-modal-bd">
+
+            </div>
+        </div>
+    </div>
+
+    <!--[if (gte IE 9)|!(IE)]><!-->
+    <script src="js/jquery.min.js"></script>
+    <!--<![endif]-->
+    <!--[if lte IE 8 ]>
+<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+    <script src="js/amazeui.min.js"></script>
+    <script src="js/app/json_ajax.js"></script>
+    <script src="js/app/suggestions.js"></script>
+</body>
+
+</html>

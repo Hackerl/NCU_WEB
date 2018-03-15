@@ -8,12 +8,12 @@
       }
     }
 
-	$('#defend_btn').click(function () {
-		$(location).attr('href', 'defend.html');
+	$('#defend_manage_btn').click(function () {
+		$(location).attr('href', 'issues.html');
     });
     
-    $('#lost_found_btn').click(function () {
-		$(location).attr('href', 'lost_found.html');
+    $('#suggestion_box_btn').click(function () {
+		$(location).attr('href', 'suggestions.html');
     });
 
     $('#wiki_btn').click(function () {
