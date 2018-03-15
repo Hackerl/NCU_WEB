@@ -25,7 +25,7 @@
     });
 
     $('#contact_btn').click(function () {
-		$(location).attr('href', 'chat.html');
+		$(location).attr('href', '/chat.html');
     });
 
     $('#staff_manage_btn').click(function () {
