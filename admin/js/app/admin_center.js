@@ -15,53 +15,6 @@
         get_json("/userinfo", callback);
     })
 
-
-
-    $('#show_issues_btn').click(function () {  //显示维权信息按钮
-        $('#issues_table_waiting').empty(); //删除表格内容
-        $('#issues_table_working').empty(); //删除表格内容
-        $('#issues_table_finish').empty(); //删除表格内容
-
-        var $modal = $('#defend-popup');
-        $modal.modal();
-
-        var call_back = function (result) {
-            if (result.error == 0) {
-                $.each(result.issues, function (index, obj) {
-                    var status = "";
-                    switch (obj.status) {
-                        case 0:
-                            status = "待处理"
-                            var issue = $('<tr><td>' + obj.title + '</td><td>' + obj.comment + '</td><td>' + status + '</td></tr>')
-                            $('#issues_table_waiting').append(issue);
-                            break;
-                        case 1:
-                            status = "处理中"
-                            var issue = $('<tr><td>' + obj.title + '</td><td>' + obj.comment + '</td><td>' + status + '</td></tr>')
-                            $('#issues_table_working').append(issue);
-                            break;
-                        case 2:
-                            status = "已完成"
-                            var issue = $('<tr><td>' + obj.title + '</td><td>' + obj.comment + '</td><td>' + status + '</td></tr>')
-                            $('#issues_table_finish').append(issue);
-                            break;
-                        default:
-                            status = "错误"
-                    }
-                })
-            } else {// 获取失败
-                $modal.modal('close')
-                var $result_modal = $('#result-alert');
-                $result_modal.modal();
-                $('#post_result_text').text(result.msg);
-            }
-        }
-        get_json("/userissues", call_back);
-    }
-    );
-
-
-
     $(function () { //上传按钮
         $('#upload_btn').upload({
             header: {
@@ -86,27 +39,6 @@
             }
         })
     })
-
-    $('#suggest_submit_btn').click(function () {  //建议意见提交按钮
-        var $btn = $(this)
-        var title = $("#title").val()
-        var content = $("#content").val()
-
-        if (title && content) {
-            var $modal = $('#result-alert');
-            $modal.modal();
-
-            var call_back = function (result) {
-                if (result.error == 0) {
-                    $('#post_result_text').text("提交成功");
-                } else {
-                    $('#post_result_text').text(result.msg);
-                }
-            }
-            post_json("/newsuggest", { "title": title, "content": content }, call_back);
-        }
-    }
-    );
 
 
     $('#reset_password_btn').click(function () { //确认重置密码按钮
@@ -152,21 +84,5 @@
             post_json("/setinfo", { "username": username, "email": email, "phone": phone }, call_back);
         }
     });
-
-    $('#show_issue_info').click(function () {  //查看维权信息
-        var issueid = $("#issueid").val()
-
-        var call_back = function (result) {
-            alert(result);
-        }
-        post_json("/queryissue", { "issueid": issueid }, call_back);
-    });
-
-    var get_all_issues = function () {  //获取全部维权信息
-        var call_back = function (result) {
-            alert(result);
-        }
-        get_json("/userissues", call_back);
-    }
 
 })(jQuery);

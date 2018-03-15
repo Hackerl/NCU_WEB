@@ -6,6 +6,7 @@
             if (result.error == 0) {
                 $.each(result.suggestions, function (index, obj) {
                     var suggestion = $('<tr><td>' + obj.id + '</td><td>' + obj.title + '</td><td><button type="button" class="am-btn am-btn-success">查看</button></td></tr>')
+                    $('#suggetion_table').append(suggestion);
                 }) // 显示所有意见
 
                 //绑定查看按钮

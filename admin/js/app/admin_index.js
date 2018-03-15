@@ -20,15 +20,15 @@
 		$(location).attr('href', 'wiki.html');
     });
 
-    $('#suggest_btn').click(function () {
-		$(location).attr('href', 'user.html');
+    $('#admin_center_btn').click(function () {
+		$(location).attr('href', 'admin_center.html');
     });
 
     $('#contact_btn').click(function () {
 		$(location).attr('href', 'chat.html');
     });
 
-    $('#introduce_btn').click(function () {
-		$(location).attr('href', 'about.html');
+    $('#staff_manage_btn').click(function () {
+		$(location).attr('href', 'staffs.html');
     });
 })(jQuery);
