@@ -7,15 +7,15 @@
                 $.each(result.issues, function (index, obj) {
                     switch (obj.status) {
                         case 0:
-                            var issue = $('<tr><td>'+ obj.id +'</td><td>'+ obj.title +'</td><td><button type="button" class="am-btn am-btn-success">查看</button><button type="button" class="am-btn am-btn-primary">处理</button><button type="button" class="am-btn am-btn-warning">删除</button></td></tr>')
+                            var issue = $('<tr><td>' + obj.id + '</td><td>' + obj.title + '</td><td><button type="button" class="am-btn am-btn-success">查看</button><button type="button" class="am-btn am-btn-primary">处理</button><button type="button" class="am-btn am-btn-warning">删除</button></td></tr>')
                             $('#issues_table_waiting').append(issue);
                             break;
                         case 1:
-                            var issue = $('<tr><td>'+ obj.id +'</td><td>'+ obj.title +'</td><td><button type="button" class="am-btn am-btn-success">查看</button><button type="button" class="am-btn am-btn-primary">处理</button><button type="button" class="am-btn am-btn-warning">删除</button></td></tr>')
+                            var issue = $('<tr><td>' + obj.id + '</td><td>' + obj.title + '</td><td><button type="button" class="am-btn am-btn-success">查看</button><button type="button" class="am-btn am-btn-primary">处理</button><button type="button" class="am-btn am-btn-warning">删除</button></td></tr>')
                             $('#issues_table_working').append(issue);
                             break;
                         case 2:
-                            var issue = $('<tr><td>'+ obj.id +'</td><td>'+ obj.title +'</td><td><button type="button" class="am-btn am-btn-success">查看</button><button type="button" class="am-btn am-btn-primary">处理</button><button type="button" class="am-btn am-btn-warning">删除</button></td></tr>')
+                            var issue = $('<tr><td>' + obj.id + '</td><td>' + obj.title + '</td><td><button type="button" class="am-btn am-btn-success">查看</button><button type="button" class="am-btn am-btn-primary">处理</button><button type="button" class="am-btn am-btn-warning">删除</button></td></tr>')
                             $('#issues_table_finish').append(issue);
                             break;
                         default:
@@ -50,18 +50,22 @@
                     var $modal = $('#update-issue-prompt');
                     $modal.modal();
 
-                    var update_status = $('#update_status').val();
-                    var update_comment = $('#update_comment').val();
+                    //绑定确定按钮 更新issue
+                    $('#update_issue_btn').click(function () {
 
-                    var call_back = function (result) {
-                        if (result.error == 0) {
+                        var update_status = $('#update_status').val();
+                        var update_comment = $('#update_comment').val();
 
-                        } else {
+                        var call_back = function (result) {
+                            if (result.error == 0) {
 
+                            } else {
+
+                            }
                         }
-                    }
-                    //更新issue
-                    post_json("/updateissue", { "status": update_status, "comment": update_comment, "issueid": issueid }, call_back);
+                        //更新issue
+                        post_json("/updateissue", { "status": update_status, "comment": update_comment, "issueid": issueid }, call_back);
+                    });
                 });
 
                 //绑定查看按钮
