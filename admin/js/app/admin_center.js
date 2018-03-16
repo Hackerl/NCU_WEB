@@ -25,7 +25,7 @@
                         $('#sethead_btn').click(function () {   //绑定确定按钮
                             var call_back = function (result_j) {
                             }
-                            post_json("/sethead", { "head_url": result.head_url }, call_back);
+                            post_json("/sethead", { "head_url": result.picture_url }, call_back);
                         })
                     } else {//上传失败 显示悬浮窗
                         var $modal = $('#result-alert');
