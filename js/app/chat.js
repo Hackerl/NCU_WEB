@@ -109,6 +109,9 @@ var init_chat_list = function () {
             $(".chatBox-list").fadeToggle();
             $(".chatBox-kuang").fadeToggle();
 
+            //清除旧的消息
+            $(".chatBox-content-demo").empty()
+
             //传名字
             $(".ChatInfoName").text($(this).children(".chat-name").children("p").eq(0).html());
 
@@ -273,7 +276,12 @@ var get_chat_list = function () {
     var call_back = function (result) {
         if (result.error == 0) {
             $.each(result.chats, function (index, obj) {
-                var chat = $('<div data-id="' + obj.chatroom.id + '" class="chat-list-people"><div><img src="' + obj.head + '" alt="头像"></div><div class="chat-name"><p>' + obj.name + '</p></div><div class="message-num">12</div></div>')
+                if(obj.new_num == 0){
+                    new_msg_num = ""
+                }else{
+                    new_msg_num = obj.new_num
+                }
+                var chat = $('<div data-id="' + obj.chatroom.id + '" class="chat-list-people"><div><img src="' + obj.head + '" alt="头像"></div><div class="chat-name"><p>' + obj.name + '</p></div><div class="message-num">'+ new_msg_num +'</div></div>')
                 $('#chatroom_list').append(chat);
             })
             init_chat_list() // 获取全部聊天消息 并列出后 绑定每个私信点击事件
