@@ -121,7 +121,7 @@ var init_chat_list = function () {
     });
 
     //进聊天页面
-    $(".chat-list-people").each(function () {
+    $(".chat-list-people").each(function () { //绑定点击事件 切换聊天界面
         $(this).click(function () {
             var n = $(this).index();
             $(".chatBox-head-one").toggle();
@@ -129,36 +129,46 @@ var init_chat_list = function () {
             $(".chatBox-list").fadeToggle();
             $(".chatBox-kuang").fadeToggle();
 
-            //清除旧的消息
-            $(".chatBox-content-demo").empty()
+            //清除新消息数字
+            $(this).find('.message-num').text("")
+            $(this).find('.message-num').css("padding", 0);
 
-            //传名字
-            $(".ChatInfoName").text($(this).children(".chat-name").children("p").eq(0).html());
-
+            //点击的聊天室id
             var chat_id = $(this).data('id');
-            //设置聊天室id
-            $('#user-chatBox').data("id", chat_id);
+            //原来的聊天室id
+            old_chat_id = $('#user-chatBox').data("id")
 
-            //传头像
-            $(".ChatInfoHead>img").attr("src", $(this).children().eq(0).children("img").attr("src"));
+            if (chat_id != old_chat_id) {
+                //清除旧的消息
+                $(".chatBox-content-demo").empty()
 
-            //获取聊天室所有消息
+                //传名字
+                $(".ChatInfoName").text($(this).children(".chat-name").children("p").eq(0).html());
 
-            var getallmsg = function (chatid) {
-                var call_back = function (result) {
-                    if (result.error == 0) {
-                        $.each(result.messages, function (index, msg) {
-                            show_msg(msg, my_userid);
-                        })
-                        //聊天框默认最底部
-                        $(document).ready(function () {
-                            $("#chatBox-content-demo").scrollTop($("#chatBox-content-demo")[0].scrollHeight);
-                        });
+                //设置聊天室id
+                $('#user-chatBox').data("id", chat_id);
+
+                //传头像
+                $(".ChatInfoHead>img").attr("src", $(this).children().eq(0).children("img").attr("src"));
+
+                //获取聊天室所有消息
+
+                var getallmsg = function (chatid) {
+                    var call_back = function (result) {
+                        if (result.error == 0) {
+                            $.each(result.messages, function (index, msg) {
+                                show_msg(msg, my_userid);
+                            })
+                            //聊天框默认最底部
+                            $(document).ready(function () {
+                                $("#chatBox-content-demo").scrollTop($("#chatBox-content-demo")[0].scrollHeight);
+                            });
+                        }
                     }
+                    post_json("/chatroom", { "chatid": chatid }, call_back)
                 }
-                post_json("/chatroom", { "chatid": chatid }, call_back)
+                getallmsg(chat_id);
             }
-            getallmsg(chat_id);
         })
     });
 }
@@ -293,18 +303,27 @@ var get_chat_list = function () {
     get_json("/messages", call_back);
 }
 
-
+//websocket接受新消息
 var get_new_msg_websocket = function (chatroom_json_list) {
     var socket = io.connect('/chat_socket');
 
     socket.on('new_msg', function (result) {
-        if (result.send_userid != my_userid) {
+        var now_chatid = $('#user-chatBox').data("id")
+        var msg_chatid = result.chatid
+
+        //发送者为对方 当前房间相对应
+        if (result.send_userid != my_userid & msg_chatid == now_chatid) {
             show_msg(result, my_userid);
+            //聊天框默认最底部
+            $(document).ready(function () {
+                $("#chatBox-content-demo").scrollTop($("#chatBox-content-demo")[0].scrollHeight);
+            });
+        } else { //添加新消息红点
+            var new_msg_div = $("[data-id="+ msg_chatid +"]").find('.message-num')
+            new_num = new_msg_div.text()
+            new_msg_div.text(parseInt(new_num) + 1)
+            new_msg_div.removeAttr("style");
         }
-        //聊天框默认最底部
-        $(document).ready(function () {
-            $("#chatBox-content-demo").scrollTop($("#chatBox-content-demo")[0].scrollHeight);
-        });
     });
 
     function join() { socket.emit('join_chatroom', { token: $.cookie('token'), chatrooms: chatroom_json_list }) };
@@ -314,5 +333,4 @@ var get_new_msg_websocket = function (chatroom_json_list) {
 initwindows()  //初始化窗口界面
 init_chatBox_click()  //绑定关闭 开启主界面按钮
 get_chat_list(); //获取用户聊天信息
-
 init_chat_windows() // 初始化聊天界面
