@@ -1,11 +1,13 @@
 var my_head = "";
 var my_username = "";
+var my_userid = null;
 var SelectImg = null;
 
 $(function () {
     var callback = function (result) {
         if (result.error == 0) {
             my_head = result.head;
+            my_userid = result.id
             my_username = result.username;
         }
     }
@@ -70,7 +72,6 @@ var init_chatBox_click = function () {
 
 }
 
-
 var show_msg_my = function (msg) {
     $(".chatBox-content-demo").append('<div class="clearfloat"><div class="author-name"><small class="chat-date">' + msg.send_time + '</small></div><div class="right"><div class="chat-message">' + msg.content + '</div><div class="chat-avatars"><img src="' + msg.head + '" alt="头像" /></div></div></div>');
 }
@@ -83,6 +84,25 @@ var show_img_my = function (msg) {
 }
 var show_img_other = function (msg) {
     $(".chatBox-content-demo").append('<div class="clearfloat"><div class="author-name"><small class="chat-date">' + msg.send_time + '</small></div><div class="left"><div class="chat-avatars"><img src="' + msg.head + '" alt="头像"></div><div class="chat-message"><img src="' + msg.content + '"></div></div></div>');
+}
+
+var show_msg = function (msg, my_user_id) {
+    switch (msg.type) {
+        case 0:
+            if (msg.send_userid == my_user_id) {
+                show_msg_my(msg);
+            } else {
+                show_msg_other(msg);
+            }
+            break;
+        case 1:
+            if (msg.send_userid == my_user_id) {
+                show_img_my(msg);
+            } else {
+                show_img_other(msg);
+            }
+            break;
+    }
 }
 
 
@@ -127,26 +147,8 @@ var init_chat_list = function () {
             var getallmsg = function (chatid) {
                 var call_back = function (result) {
                     if (result.error == 0) {
-                        var my_userid = result.my_userid
-
                         $.each(result.messages, function (index, msg) {
-                            switch (msg.type) {
-                                case 0:
-                                    if (msg.send_userid == my_userid) {
-                                        show_msg_my(msg);
-                                    } else {
-                                        show_msg_other(msg);
-                                    }
-                                    break;
-                                case 1:
-                                    if (msg.send_userid == my_userid) {
-                                        show_img_my(msg);
-                                    } else {
-                                        show_img_other(msg);
-                                    }
-                                    break;
-                            }
-
+                            show_msg(msg, my_userid);
                         })
                         //聊天框默认最底部
                         $(document).ready(function () {
@@ -234,17 +236,15 @@ var init_chat_windows = function () {
         var reader = new FileReader();
         reader.onload = function (evt) {
             var images = evt.target.result;
-            console.log(images)
             $(".chatBox-content-demo").append("<div class=\"clearfloat\">" +
                 "<div class=\"author-name\"><small class=\"chat-date\">2017-12-02 14:26:58</small> </div> " +
                 "<div class=\"right\"> <div class=\"chat-message\"><img src=" + images + "></div> " +
-                "<div class=\"chat-avatars\"><img src=\""+ my_head +"\" alt=\"头像\" /></div> </div> </div>");
+                "<div class=\"chat-avatars\"><img src=\"" + my_head + "\" alt=\"头像\" /></div> </div> </div>");
             //聊天框默认最底部
             $(document).ready(function () {
                 $("#chatBox-content-demo").scrollTop($("#chatBox-content-demo")[0].scrollHeight);
             });
         };
-        console.log(pic.files[0])
         reader.readAsDataURL(pic.files[0]);
 
         var formData = new FormData();
@@ -275,19 +275,40 @@ var init_chat_windows = function () {
 var get_chat_list = function () {
     var call_back = function (result) {
         if (result.error == 0) {
+            var chatroom_json_list = [];
             $.each(result.chats, function (index, obj) {
-                if(obj.new_num == 0){
+                if (obj.new_num == 0) {
                     new_msg_num = ""
-                }else{
+                } else {
                     new_msg_num = obj.new_num
                 }
-                var chat = $('<div data-id="' + obj.chatroom.id + '" class="chat-list-people"><div><img src="' + obj.head + '" alt="头像"></div><div class="chat-name"><p>' + obj.name + '</p></div><div class="message-num">'+ new_msg_num +'</div></div>')
+                var chat = $('<div data-id="' + obj.chatroom.id + '" class="chat-list-people"><div><img src="' + obj.head + '" alt="头像"></div><div class="chat-name"><p>' + obj.name + '</p></div><div class="message-num">' + new_msg_num + '</div></div>')
                 $('#chatroom_list').append(chat);
+                chatroom_json_list.push({ "chatroomid": obj.chatroom.id })
             })
+            get_new_msg_websocket(chatroom_json_list)
             init_chat_list() // 获取全部聊天消息 并列出后 绑定每个私信点击事件
         }
     }
     get_json("/messages", call_back);
+}
+
+
+var get_new_msg_websocket = function (chatroom_json_list) {
+    var socket = io.connect('/chat_socket');
+
+    socket.on('new_msg', function (result) {
+        if (result.send_userid != my_userid) {
+            show_msg(result, my_userid);
+        }
+        //聊天框默认最底部
+        $(document).ready(function () {
+            $("#chatBox-content-demo").scrollTop($("#chatBox-content-demo")[0].scrollHeight);
+        });
+    });
+
+    function join() { socket.emit('join_chatroom', { token: $.cookie('token'), chatrooms: chatroom_json_list }) };
+    setTimeout(join, 3000);
 }
 
 initwindows()  //初始化窗口界面
